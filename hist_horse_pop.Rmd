@@ -8,7 +8,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
-library(knitr)
+library()
 ```
 
 ## Aim
@@ -38,7 +38,7 @@ The R programming language and the following R packages were used to perform the
 
 ## Results
 
-```{r plot horses, fig.width=10, fig.height=3, fig.cap = "Figure 1.Maximum and minimum number of horses for each province between 1940- 1972", out.width="100%" }
+```{r plot horses, fig.width=10, fig.height=3}
 horse_plot <- ggplot(horse_pop, aes(x = Ref_Date, y = Value)) +
   geom_point() +
   geom_line() +
@@ -57,21 +57,19 @@ industry after the Great Depression and the Second World War. An interesting fol
 
 Next we look at the range of the number horses for each provinces at any time point between 1940 - 1972:
 
-```{r max horse table, message=FALSE, warning=FALSE}
+```{r max horse table}
 max_horses <- horse_pop %>% 
   select(GEO, Value) %>% 
   rename(Province = GEO) %>% 
   group_by(Province) %>% 
   summarize(Maximum = max(Value),
             Minimum = min(Value))
-kable(max_horses,
-      caption = "Table 1. Maximum and minimum number of horses for each province between 1940- 1972")
-      
+max_horses
 ```
 
 Below we zoom in and look at the province of Alberta:
 
-```{r plot province, fig.width=5, fig.height=4, fig.cap="Figure 2. Maximum and minimum number of horses for each province between 1940- 1972",out.width="50%"}
+```{r plot province, fig.width=5, fig.height=4}
 province_plot <- horse_pop %>% 
   filter(GEO == "Alberta") %>% 
   ggplot(aes(x = Ref_Date, y = Value)) +
